@@ -8,6 +8,11 @@ import javax.swing.*;
 public class LoginPage extends JFrame {
     protected JPanel loginPanel;
     private JTextField usernameInput;
+
+    public JButton getLoginButton() {
+        return loginButton;
+    }
+
     private JButton loginButton;
     private JPasswordField passwordInput;
 
