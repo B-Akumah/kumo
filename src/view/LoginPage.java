@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author bakumah
@@ -9,8 +8,20 @@ import java.awt.*;
 public class LoginPage extends JFrame {
     protected JPanel loginPanel;
     private JTextField usernameInput;
-    private JTextField passwordInput;
     private JButton loginButton;
+    private JPasswordField passwordInput;
+
+    public JPanel getLoginPanel() {
+        return loginPanel;
+    }
+
+    public JTextField getUsernameInput() {
+        return usernameInput;
+    }
+
+    public JPasswordField getPasswordInput() {
+        return passwordInput;
+    }
 
     public LoginPage() {
         initComponents();

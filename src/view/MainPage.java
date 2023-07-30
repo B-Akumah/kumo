@@ -13,14 +13,6 @@ public class MainPage extends JFrame {
 
     public MainPage() {
         initComponents();
-//        loginButton.addActionListener(e -> {
-//            new LoginPage();
-//            dispose();
-//        });
-//        createAccountButton.addActionListener(e -> {
-//            new CreateAccountPage();
-//            dispose();
-//        });
     }
 
     public JPanel getMainPanel() {
@@ -42,7 +34,7 @@ public class MainPage extends JFrame {
 
         // Set the title, default close operation, visibility, and pack the JFrame
         setTitle("KUMO Banking");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         pack();
     }

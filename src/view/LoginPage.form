@@ -45,14 +45,6 @@
           <text value="Password:"/>
         </properties>
       </component>
-      <component id="e370f" class="javax.swing.JTextField" binding="passwordInput">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="250" height="35"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
       <component id="40b91" class="javax.swing.JButton" binding="loginButton" default-binding="true">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
@@ -75,6 +67,14 @@
           </grid>
         </constraints>
       </vspacer>
+      <component id="6fdf0" class="javax.swing.JPasswordField" binding="passwordInput">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="250" height="35"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
     </children>
   </grid>
 </form>

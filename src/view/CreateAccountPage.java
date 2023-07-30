@@ -7,9 +7,32 @@ import javax.swing.*;
  */
 public class CreateAccountPage extends JFrame {
     private JTextField usernameInput;
-    private JTextField passwordInput;
+    private JPasswordField passwordInput;
     private JPanel createAccountPanel;
     private JButton createButton;
+
+    public JTextField getFirstNameInput() {
+        return firstNameInput;
+    }
+
+    public JTextField getLastNameInput() {
+        return lastNameInput;
+    }
+
+    private JTextField firstNameInput;
+    private JTextField lastNameInput;
+
+    public JTextField getUsernameInput() {
+        return usernameInput;
+    }
+
+    public JPasswordField getPasswordInput() {
+        return passwordInput;
+    }
+
+    public JButton getCreateButton() {
+        return createButton;
+    }
 
     public CreateAccountPage() {
         initComponents();
