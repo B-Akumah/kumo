@@ -1,7 +1,8 @@
 /**
  * @author bakumah
- */public class Main {
+ */
+public class Kumo {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        new KumoController();
     }
 }
