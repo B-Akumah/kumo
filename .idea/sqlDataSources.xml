@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="6f9c090c-83fb-4e1b-830a-b463ae861907" name="mainDB Mapping">
+      <data-sources db="9826c3c1-49de-40e6-86f6-aca15302546f" />
+      <scope>
+        <node kind="schema" qname="BAKUMAH" />
+      </scope>
+    </mapping>
+  </component>
+</project>

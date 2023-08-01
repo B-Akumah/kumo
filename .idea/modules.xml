@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/kumo.iml" filepath="$PROJECT_DIR$/kumo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kumo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kumo.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kumo.test.iml" filepath="$PROJECT_DIR$/.idea/modules/kumo.test.iml" />
     </modules>
   </component>
 </project>
