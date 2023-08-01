@@ -2,12 +2,10 @@ package edu.csis;
 
 import edu.csis.dao.AccountDao;
 import edu.csis.dao.UserDao;
-import edu.csis.services.UserDatabaseService;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -27,6 +25,6 @@ public class Kumo {
                 .headless(false).web(WebApplicationType.NONE).run(args);
         UserDao userDao = appContext.getBean(UserDao.class);
         AccountDao accountDao = appContext.getBean(AccountDao.class);
-        EventQueue.invokeLater(() -> new KumoController(userDao, accountDao).startKumo());
+        EventQueue.invokeLater(() -> new LoginController(userDao, accountDao).startKumo());
     }
 }

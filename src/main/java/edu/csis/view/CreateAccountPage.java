@@ -6,6 +6,7 @@ import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.text.MaskFormatter;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;
@@ -19,6 +20,23 @@ public class CreateAccountPage extends JFrame {
     private JPasswordField passwordInput;
     private JPanel createAccountPanel;
     private JButton createButton;
+    private JTextField firstNameInput;
+    private JTextField lastNameInput;
+    private JTextField emailInput;
+    private JTextField phoneInput;
+
+    public CreateAccountPage() {
+        initComponents();
+
+    }
+
+    public JTextField getEmailInput() {
+        return emailInput;
+    }
+
+    public JTextField getPhoneInput() {
+        return phoneInput;
+    }
 
     public JTextField getFirstNameInput() {
         return firstNameInput;
@@ -27,9 +45,6 @@ public class CreateAccountPage extends JFrame {
     public JTextField getLastNameInput() {
         return lastNameInput;
     }
-
-    private JTextField firstNameInput;
-    private JTextField lastNameInput;
 
     public JTextField getUsernameInput() {
         return usernameInput;
@@ -41,10 +56,6 @@ public class CreateAccountPage extends JFrame {
 
     public JButton getCreateButton() {
         return createButton;
-    }
-
-    public CreateAccountPage() {
-        initComponents();
     }
 
     private void initComponents() {
@@ -75,7 +86,7 @@ public class CreateAccountPage extends JFrame {
      */
     private void $$$setupUI$$$() {
         createAccountPanel = new JPanel();
-        createAccountPanel.setLayout(new GridLayoutManager(12, 1, new Insets(30, 40, 40, 40), -1, -1));
+        createAccountPanel.setLayout(new GridLayoutManager(16, 1, new Insets(30, 40, 40, 40), -1, -1));
         final JLabel label1 = new JLabel();
         Font label1Font = this.$$$getFont$$$("Arial Black", Font.PLAIN, 28, label1.getFont());
         if (label1Font != null) label1.setFont(label1Font);
@@ -83,21 +94,21 @@ public class CreateAccountPage extends JFrame {
         createAccountPanel.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Username:");
-        createAccountPanel.add(label2, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(119, 16), null, 0, false));
+        createAccountPanel.add(label2, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(119, 16), null, 0, false));
         usernameInput = new JTextField();
-        createAccountPanel.add(usernameInput, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
+        createAccountPanel.add(usernameInput, new GridConstraints(10, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
         final Spacer spacer1 = new Spacer();
-        createAccountPanel.add(spacer1, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 10), null, 0, false));
+        createAccountPanel.add(spacer1, new GridConstraints(11, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 10), null, 0, false));
         final JLabel label3 = new JLabel();
         label3.setText("Password:");
-        createAccountPanel.add(label3, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(119, 16), null, 0, false));
+        createAccountPanel.add(label3, new GridConstraints(12, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(119, 16), null, 0, false));
         createButton = new JButton();
         createButton.setText("Create");
-        createAccountPanel.add(createButton, new GridConstraints(11, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        createAccountPanel.add(createButton, new GridConstraints(15, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
-        createAccountPanel.add(spacer2, new GridConstraints(10, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 10), null, 0, false));
+        createAccountPanel.add(spacer2, new GridConstraints(14, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 10), null, 0, false));
         passwordInput = new JPasswordField();
-        createAccountPanel.add(passwordInput, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
+        createAccountPanel.add(passwordInput, new GridConstraints(13, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
         final JLabel label4 = new JLabel();
         label4.setText("First Name:");
         createAccountPanel.add(label4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -108,6 +119,16 @@ public class CreateAccountPage extends JFrame {
         createAccountPanel.add(label5, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         lastNameInput = new JTextField();
         createAccountPanel.add(lastNameInput, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
+        emailInput = new JTextField();
+        createAccountPanel.add(emailInput, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
+        final JLabel label6 = new JLabel();
+        label6.setText("Email");
+        createAccountPanel.add(label6, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label7 = new JLabel();
+        label7.setText("Phone: ");
+        createAccountPanel.add(label7, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        phoneInput = new JTextField();
+        createAccountPanel.add(phoneInput, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
     }
 
     /**
@@ -132,4 +153,5 @@ public class CreateAccountPage extends JFrame {
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {return createAccountPanel;}
+
 }

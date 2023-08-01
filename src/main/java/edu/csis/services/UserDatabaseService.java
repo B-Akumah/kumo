@@ -22,7 +22,7 @@ public class UserDatabaseService {
 
     public UserDatabaseService(UserDao userDao) {this.userDao = userDao;}
 
-    public User createUser(String fname, String lName, String username, char[] password) {
+    public User createUser(String fname, String lName, String username, char[] password, String email, String phone) {
         try {
             byte[] salt = new byte[16];
             new SecureRandom().nextBytes(salt);
@@ -32,6 +32,8 @@ public class UserDatabaseService {
                     .firstName(fname)
                     .lastName(lName)
                     .username(username.toUpperCase())
+                    .email(email)
+                    .phoneNumber(phone)
                     .passwordHash(hashPassword)
                     .passwordSalt(salt)
                     .build();
