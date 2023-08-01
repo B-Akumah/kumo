@@ -1,7 +1,10 @@
 package edu.csis;
 
 
+import edu.csis.dao.AccountDao;
 import edu.csis.dao.UserDao;
+import edu.csis.model.User;
+import edu.csis.services.BankAccountDatabaseService;
 import edu.csis.services.UserDatabaseService;
 import edu.csis.view.CreateAccountPage;
 import edu.csis.view.LoginPage;
@@ -20,11 +23,13 @@ import static javax.swing.JOptionPane.showMessageDialog;
 @Controller
 public class KumoController {
     private final UserDatabaseService userDatabaseService;
+    private final BankAccountDatabaseService bankAccountDatabaseService;
     private final UserDao userDao;
     boolean isLoggedIn = false;
 
-    public KumoController(UserDao userDao) {
+    public KumoController(UserDao userDao, AccountDao accountDao) {
         userDatabaseService = new UserDatabaseService(userDao);
+        bankAccountDatabaseService = new BankAccountDatabaseService(accountDao);
         this.userDao = userDao;
     }
 
@@ -72,13 +77,20 @@ public class KumoController {
                 // Check if username already exists
                 if (userDatabaseService.isUniqueUsername(username)) {
                     // Create Account Username and PW
-                    boolean createAccountSuccessful = userDatabaseService.createUser(firstName, lastName, username, password);
-                    if (createAccountSuccessful) {
-                        // Open initial bank accounts
-                        // Show them Dashboard Screen
-                        // dispose create account pane
-                        createAccountPage.dispose();
+                    User createdUser = userDatabaseService.createUser(firstName, lastName, username, password);
+                    if (createdUser != null) {
+                        isLoggedIn = true;
 
+                        // Open initial bank accounts
+                        bankAccountDatabaseService.createCheckingAccount(createdUser);
+                        bankAccountDatabaseService.createSavingAccount(createdUser);
+                        // Show them Dashboard Screen
+                        new DashboardController(userDao, createdUser.getUserID());
+
+                        // dispose create account pane
+                        mainPage.dispose();
+                        createAccountPage.dispose();
+                        System.out.println("YAYY WE LOGGED IN");
                     } else {
                         showMessageDialog(null, "Unable to create account. Try again later");
                     }
@@ -89,7 +101,9 @@ public class KumoController {
             createAccountPage.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    mainPage.setVisible(true);
+                    if (!isLoggedIn) {
+                        mainPage.setVisible(true);
+                    }
                 }
             });
         });

@@ -10,14 +10,7 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author bakumah
@@ -29,7 +22,7 @@ public class UserDatabaseService {
 
     public UserDatabaseService(UserDao userDao) {this.userDao = userDao;}
 
-    public boolean createUser(String fname, String lName, String username, char[] password) {
+    public User createUser(String fname, String lName, String username, char[] password) {
         try {
             byte[] salt = new byte[16];
             new SecureRandom().nextBytes(salt);
@@ -44,12 +37,11 @@ public class UserDatabaseService {
                     .build();
 
             System.out.println(user);
-            userDao.save(user);
+            return userDao.save(user);
 
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

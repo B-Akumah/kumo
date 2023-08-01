@@ -9,10 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
-enum AccountType {
-    SAVINGS, CHECKING
-}
-
 /**
  * @author bakumah
  */
@@ -41,5 +37,6 @@ public class Account {
 
     double interestRate;
 
-    String status;
+    @Enumerated(EnumType.STRING)
+    AccountStatus status;
 }

@@ -1,5 +1,6 @@
 package edu.csis;
 
+import edu.csis.dao.AccountDao;
 import edu.csis.dao.UserDao;
 import edu.csis.services.UserDatabaseService;
 import org.springframework.boot.WebApplicationType;
@@ -22,10 +23,10 @@ import java.awt.*;
 //@ComponentScan(basePackages = "edu.csis.*")
 public class Kumo {
     public static void main(String[] args) {
-        var ctx = new SpringApplicationBuilder(Kumo.class)
+        var appContext = new SpringApplicationBuilder(Kumo.class)
                 .headless(false).web(WebApplicationType.NONE).run(args);
-        UserDao userDao = ctx.getBean(UserDao.class);
-//        UserDatabaseService userDatabaseService = ctx.getBean(UserDatabaseService.class);
-        EventQueue.invokeLater(() -> new KumoController(userDao).startKumo());
+        UserDao userDao = appContext.getBean(UserDao.class);
+        AccountDao accountDao = appContext.getBean(AccountDao.class);
+        EventQueue.invokeLater(() -> new KumoController(userDao, accountDao).startKumo());
     }
 }
