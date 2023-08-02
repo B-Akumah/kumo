@@ -13,9 +13,13 @@ import java.awt.*;
 import java.util.Locale;
 
 /**
+ * This class represents the GUI dashboard page for the user in the KUMO Banking application.
+ * It extends JFrame and contains a panel with buttons and labels to interact with the user.
+ *
  * @author bakumah
  */
 public class DashboardPage extends JFrame {
+    // GUI components
     private JPanel dashboardPanel;
     private JButton accountSummaryButton;
     private JButton transferMoneyButton;
@@ -23,33 +27,65 @@ public class DashboardPage extends JFrame {
     private JButton logOutButton;
     private JLabel welcomeText;
 
+    /**
+     * Constructor for the DashboardPage class.
+     * Initializes the dashboard page with the user's information and components.
+     *
+     * @param user The User object representing the currently logged-in user.
+     */
     public DashboardPage(User user) {
+        // Extract user information to display a personalized welcome message
         String username = user.getUsername();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         welcomeText.setText("Welcome " + firstName + " " + lastName);
+
+        // Initialize the rest of the GUI components
         initComponents();
     }
 
+    /**
+     * Returns the Account Summary Button on the dashboard page.
+     *
+     * @return The Account Summary Button instance.
+     */
     public JButton getAccountSummaryButton() {
         return accountSummaryButton;
     }
 
+    /**
+     * Returns the Transfer Money Button on the dashboard page.
+     *
+     * @return The Transfer Money Button instance.
+     */
     public JButton getTransferMoneyButton() {
         return transferMoneyButton;
     }
 
+    /**
+     * Returns the Account Manager Button on the dashboard page.
+     *
+     * @return The Account Manager Button instance.
+     */
     public JButton getAccountManagerButton() {
         return accountManagerButton;
     }
 
+    /**
+     * Returns the Log Out Button on the dashboard page.
+     *
+     * @return The Log Out Button instance.
+     */
     public JButton getLogOutButton() {
         return logOutButton;
     }
 
+    /**
+     * Initializes the components of the dashboard GUI.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
     private void initComponents() {
-
-        // Set the mainPanel as the content pane of the JFrame
+        // Set the dashboardPanel as the content pane of the JFrame
         setContentPane(dashboardPanel);
 
         // Set the title, default close operation, visibility, and pack the JFrame

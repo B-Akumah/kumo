@@ -11,30 +11,57 @@ import java.awt.*;
 import java.util.Locale;
 
 /**
+ * This class represents the GUI page for managing user accounts in the KUMO Banking application.
+ * It extends JFrame and contains buttons to navigate to different account management options.
+ *
  * @author bakumah
  */
 public class AccountManagerPage extends JFrame {
+    // GUI components
     private JPanel accountManagerPanel;
     private JButton homeButton;
     private JButton editUserInfoButton;
     private JButton addNewAccountButton;
 
+    /**
+     * Constructor for the AccountManagerPage class.
+     * Initializes the components of the GUI.
+     */
     public AccountManagerPage() {
         initComponents();
     }
 
+    /**
+     * Returns the Home Button on the account manager page.
+     *
+     * @return The Home Button instance.
+     */
     public JButton getHomeButton() {
         return homeButton;
     }
 
+    /**
+     * Returns the Edit User Info Button on the account manager page.
+     *
+     * @return The Edit User Info Button instance.
+     */
     public JButton getEditUserInfoButton() {
         return editUserInfoButton;
     }
 
+    /**
+     * Returns the Add New Account Button on the account manager page.
+     *
+     * @return The Add New Account Button instance.
+     */
     public JButton getAddNewAccountButton() {
         return addNewAccountButton;
     }
 
+    /**
+     * Initializes the components of the GUI.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
     void initComponents() {
         setContentPane(accountManagerPanel);
 

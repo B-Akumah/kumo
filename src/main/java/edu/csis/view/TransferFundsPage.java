@@ -12,9 +12,13 @@ import java.util.List;
 import java.util.Locale;
 
 /**
+ * This class represents a page in the KUMO Banking application where users can transfer funds
+ * between their accounts. It extends JFrame and contains a panel with various components for fund transfer.
+ *
  * @author bakumah
  */
 public class TransferFundsPage extends JFrame {
+    // GUI components
     private JPanel transferFundsPanel;
     private JButton homeButton;
     private JComboBox<String> accountFromDropdown;
@@ -23,75 +27,139 @@ public class TransferFundsPage extends JFrame {
     private JButton cancelButton;
     private JButton transferButton;
 
+    // Variables to store transfer details
     private int transferFrom;
     private double fromAccountBalance;
-
     private int transferTo;
 
+    /**
+     * Constructor for the TransferFundsPage class.
+     * Initializes the components for transferring funds between accounts.
+     *
+     * @param accounts A list of user accounts from which the user can select accounts for the transfer.
+     */
     public TransferFundsPage(List<Account> accounts) {
+        // Populate the account dropdowns with account information
         for (Account account : accounts) {
             accountFromDropdown.addItem(account.getAccountType() + ",  #" + account.getAccountNumber() + ",  $" + account.getBalance());
             accountToDropdown.addItem(account.getAccountType() + ",  #" + account.getAccountNumber() + ",  $" + account.getBalance());
         }
 
+        // Set the initial transfer from and transfer to accounts
         setFromAccount();
         setToAccount();
+
         initComponents();
 
+        // Set action listeners to update the selected accounts when dropdown values change
         accountFromDropdown.addActionListener(e -> setFromAccount());
         accountToDropdown.addActionListener(e -> setToAccount());
     }
 
+    /**
+     * Returns the balance of the account from which funds will be transferred.
+     *
+     * @return The balance of the "From" account as a double.
+     */
     public double getFromAccountBalance() {
         return fromAccountBalance;
     }
 
+    /**
+     * Updates the transferFrom and fromAccountBalance variables based on the selected "From" account.
+     */
     void setFromAccount() {
         String[] fromDropdownParts = accountFromDropdown.getSelectedItem().toString().split(",");
         transferFrom = Integer.parseInt(fromDropdownParts[1].trim().substring(1));
         fromAccountBalance = Double.parseDouble(fromDropdownParts[2].trim().substring(1));
     }
 
+    /**
+     * Updates the transferTo variable based on the selected "To" account.
+     */
     void setToAccount() {
         String[] toDropdownParts = accountToDropdown.getSelectedItem().toString().split(",");
         transferTo = Integer.parseInt(toDropdownParts[1].trim().substring(1));
     }
 
+    /**
+     * Returns the account number of the "From" account from which funds will be transferred.
+     *
+     * @return The account number of the "From" account as an int.
+     */
     public int getTransferFrom() {
         return transferFrom;
     }
 
+    /**
+     * Returns the account number of the "To" account to which funds will be transferred.
+     *
+     * @return The account number of the "To" account as an int.
+     */
     public int getTransferTo() {
         return transferTo;
     }
 
+    /**
+     * Returns the home button on the transfer funds page.
+     *
+     * @return The home button as a JButton.
+     */
     public JButton getHomeButton() {
         return homeButton;
     }
 
+    /**
+     * Returns the dropdown list for selecting the "From" account.
+     *
+     * @return The accountFromDropdown as a JComboBox.
+     */
     public JComboBox<String> getAccountFromDropdown() {
         return accountFromDropdown;
     }
 
+    /**
+     * Returns the dropdown list for selecting the "To" account.
+     *
+     * @return The accountToDropdown as a JComboBox.
+     */
     public JComboBox<String> getAccountToDropdown() {
         return accountToDropdown;
     }
 
+    /**
+     * Returns the text field for entering the transfer amount.
+     *
+     * @return The transferAmountInput as a JTextField.
+     */
     public JTextField getTransferAmountInput() {
         return transferAmountInput;
     }
 
+    /**
+     * Returns the cancel button on the transfer funds page.
+     *
+     * @return The cancel button as a JButton.
+     */
     public JButton getCancelButton() {
         return cancelButton;
     }
 
+    /**
+     * Returns the transfer button on the transfer funds page.
+     *
+     * @return The transfer button as a JButton.
+     */
     public JButton getTransferButton() {
         return transferButton;
     }
 
+    /**
+     * Initializes the components of the transfer funds GUI page.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
     private void initComponents() {
-
-        // Set the mainPanel as the content pane of the JFrame
+        // Set the transferFundsPanel as the content pane of the JFrame
         setContentPane(transferFundsPanel);
 
         // Set the title, default close operation, visibility, and pack the JFrame
