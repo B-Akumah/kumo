@@ -30,7 +30,6 @@ public class TransferFundsPage extends JFrame {
 
     public TransferFundsPage(List<Account> accounts) {
         for (Account account : accounts) {
-            System.out.println(account.getAccountType() + ",  #" + account.getAccountNumber() + ",  $" + account.getBalance());
             accountFromDropdown.addItem(account.getAccountType() + ",  #" + account.getAccountNumber() + ",  $" + account.getBalance());
             accountToDropdown.addItem(account.getAccountType() + ",  #" + account.getAccountNumber() + ",  $" + account.getBalance());
         }

@@ -40,7 +40,6 @@ public class UserDatabaseService {
                     .address(address)
                     .build();
 
-            System.out.println(user);
             return userDao.save(user);
 
         } catch (Exception e) {
@@ -96,4 +95,14 @@ public class UserDatabaseService {
         }
     }
 
+    public boolean updateUser(User user) {
+        try {
+            System.out.println(user.toString());
+            userDao.saveAndFlush(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

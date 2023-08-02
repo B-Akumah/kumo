@@ -27,7 +27,6 @@ public class DashboardPage extends JFrame {
         String username = user.getUsername();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
-        System.out.println(user.getUserID() + " = " + username);
         welcomeText.setText("Welcome " + firstName + " " + lastName);
         initComponents();
     }

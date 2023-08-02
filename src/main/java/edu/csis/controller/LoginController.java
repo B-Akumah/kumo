@@ -59,13 +59,12 @@ public class LoginController {
                         isLoggedIn = true;
                         loginPage.dispose();
                         mainPage.setVisible(false);
-                        System.out.println("YAYY WE LOGGED IN");
 
                         dashboardController.getLogOutButton().addActionListener(lob -> {
+                            isLoggedIn = false;
                             dashboardController.setUser(null);
                             dashboardController.getDashboardPage().dispose();
                             mainPage.setVisible(true);
-                            System.out.println("Log Out");
                         });
                     } else {
                         showMessageDialog(null, "Invalid login. Try again.");
@@ -131,13 +130,12 @@ public class LoginController {
                             // dispose create account pane
                             mainPage.setVisible(false);
                             createAccountPage.dispose();
-                            System.out.println("YAYY WE LOGGED IN");
 
                             dashboardController.getLogOutButton().addActionListener(lob -> {
+                                isLoggedIn = false;
                                 dashboardController.setUser(null);
                                 dashboardController.getDashboardPage().dispose();
                                 mainPage.setVisible(true);
-                                System.out.println("Log Out");
                             });
                         } else {
                             showMessageDialog(null, "Unable to create account. Try again later");

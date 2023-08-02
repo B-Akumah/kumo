@@ -30,7 +30,6 @@ public class TransactionHistoryPage extends JFrame {
     private JButton backToSummaryButton;
 
     public TransactionHistoryPage(int transactionID, double accountBalance, List<FundsTransaction> transactionList) {
-        System.out.println(transactionList.size());
         initComponents();
 
         accountGlance.setText("Account #" + transactionID + ":      $" + accountBalance);
