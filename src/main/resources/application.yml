@@ -6,13 +6,14 @@ spring:
         show-sql: true
 
     datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/final_project
+        driver-class-name: org.apache.derby.iapi.jdbc.AutoloadedDriver
+        url: jdbc:derby:final_project;create=true
         username: csis
         password: password
         type: com.zaxxer.hikari.HikariDataSource
-#        hikari:
-#            jdbcUrl: ${spring.datasource.url}
-#            driver-class-name: org.apache.derby.iapi.jdbc.AutoloadedDriver
-#            maximum-pool-size: 1
+
+logging:
+    level:
+        com.zaxxer.hikari: ERROR
+
 
