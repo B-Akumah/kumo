@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Entity class representing a user in the system.
  * It is mapped to the "BANK_USERS" table in the database.
- * 
+ *
  * @author bakumah
  */
 @Entity
