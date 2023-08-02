@@ -2,6 +2,7 @@ package edu.csis.controller;
 
 
 import edu.csis.dao.AccountDao;
+import edu.csis.dao.FundsTransactionDao;
 import edu.csis.dao.UserDao;
 import edu.csis.model.User;
 import edu.csis.services.BankAccountDatabaseService;
@@ -25,13 +26,15 @@ public class LoginController {
     private final BankAccountDatabaseService bankAccountDatabaseService;
     private final UserDao userDao;
     private final AccountDao accountDao;
+    private final FundsTransactionDao fundsTransactionDao;
     boolean isLoggedIn = false;
 
-    public LoginController(UserDao userDao, AccountDao accountDao) {
+    public LoginController(UserDao userDao, AccountDao accountDao, FundsTransactionDao fundsTransactionDao) {
         userDatabaseService = new UserDatabaseService(userDao);
-        bankAccountDatabaseService = new BankAccountDatabaseService(accountDao);
+        bankAccountDatabaseService = new BankAccountDatabaseService(accountDao,fundsTransactionDao);
         this.userDao = userDao;
         this.accountDao = accountDao;
+        this.fundsTransactionDao = fundsTransactionDao;
     }
 
     public void startKumo() {
@@ -51,7 +54,7 @@ public class LoginController {
                     int login = userDatabaseService.verifyLogin(username, password);
 
                     if (login > 0) {
-                        new DashboardController(userDao, accountDao, login);
+                        new DashboardController(userDao, accountDao,fundsTransactionDao, login);
                         isLoggedIn = true;
                         loginPage.dispose();
                         mainPage.dispose();
@@ -96,7 +99,7 @@ public class LoginController {
                             bankAccountDatabaseService.createCheckingAccount(createdUser);
                             bankAccountDatabaseService.createSavingAccount(createdUser);
                             // Show them Dashboard Screen
-                            new DashboardController(userDao, accountDao, createdUser.getUserID());
+                            new DashboardController(userDao, accountDao, fundsTransactionDao, createdUser.getUserID());
 
                             // dispose create account pane
                             mainPage.dispose();

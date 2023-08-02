@@ -24,12 +24,9 @@ public class TransferFundsPage extends JFrame {
     private JButton transferButton;
 
     private int transferFrom;
-    private int fromAccountBalance;
-    private int transferTo;
+    private double fromAccountBalance;
 
-    public int getFromAccountBalance() {
-        return fromAccountBalance;
-    }
+    private int transferTo;
 
     public TransferFundsPage(List<Account> accounts) {
         for (Account account : accounts) {
@@ -38,17 +35,31 @@ public class TransferFundsPage extends JFrame {
             accountToDropdown.addItem(account.getAccountType() + ",  #" + account.getAccountNumber() + ",  $" + account.getBalance());
         }
 
-
+        setFromAccount();
+        setToAccount();
         initComponents();
+
         accountFromDropdown.addActionListener(e -> {
-            String[] dropdownParts = accountFromDropdown.getSelectedItem().toString().split(",");
-            transferFrom = Integer.parseInt(dropdownParts[1].trim().substring(1));
-            fromAccountBalance = Integer.parseInt(dropdownParts[2].trim().substring(1));
+            setFromAccount();
         });
         accountToDropdown.addActionListener(e -> {
-            String[] dropdownParts = accountToDropdown.getSelectedItem().toString().split(",");
-            transferTo = Integer.parseInt(dropdownParts[1].trim().substring(1));
+            setToAccount();
         });
+    }
+
+    public double getFromAccountBalance() {
+        return fromAccountBalance;
+    }
+
+    void setFromAccount() {
+        String[] fromDropdownParts = accountFromDropdown.getSelectedItem().toString().split(",");
+        transferFrom = Integer.parseInt(fromDropdownParts[1].trim().substring(1));
+        fromAccountBalance = Double.parseDouble(fromDropdownParts[2].trim().substring(1));
+    }
+
+    void setToAccount() {
+        String[] toDropdownParts = accountToDropdown.getSelectedItem().toString().split(",");
+        transferTo = Integer.parseInt(toDropdownParts[1].trim().substring(1));
     }
 
     public int getTransferFrom() {
@@ -111,39 +122,41 @@ public class TransferFundsPage extends JFrame {
      */
     private void $$$setupUI$$$() {
         transferFundsPanel = new JPanel();
-        transferFundsPanel.setLayout(new GridLayoutManager(5, 3, new Insets(20, 50, 30, 100), -1, -1));
+        transferFundsPanel.setLayout(new GridLayoutManager(6, 3, new Insets(20, 50, 30, 100), -1, -1));
         homeButton = new JButton();
         homeButton.setText("Home");
-        transferFundsPanel.add(homeButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(75, 25), null, 0, false));
+        transferFundsPanel.add(homeButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(50, 50), null, 0, false));
         final JLabel label1 = new JLabel();
         label1.setText("Account From:");
-        transferFundsPanel.add(label1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        transferFundsPanel.add(label1, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         accountFromDropdown = new JComboBox();
         accountFromDropdown.setBackground(new Color(-657931));
-        transferFundsPanel.add(accountFromDropdown, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
+        transferFundsPanel.add(accountFromDropdown, new GridConstraints(2, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Account To:");
-        transferFundsPanel.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        transferFundsPanel.add(label2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label3 = new JLabel();
         label3.setText("Amount: ");
-        transferFundsPanel.add(label3, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        transferFundsPanel.add(label3, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         accountToDropdown = new JComboBox();
         accountToDropdown.setBackground(new Color(-657931));
-        transferFundsPanel.add(accountToDropdown, new GridConstraints(2, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
+        transferFundsPanel.add(accountToDropdown, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
         transferAmountInput = new JTextField();
         transferAmountInput.setText("");
-        transferFundsPanel.add(transferAmountInput, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
+        transferFundsPanel.add(transferAmountInput, new GridConstraints(4, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 35), null, 0, false));
         cancelButton = new JButton();
         cancelButton.setText("Cencel");
-        transferFundsPanel.add(cancelButton, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 25), null, 0, false));
+        transferFundsPanel.add(cancelButton, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 25), null, 0, false));
         transferButton = new JButton();
         transferButton.setText("Transfer");
-        transferFundsPanel.add(transferButton, new GridConstraints(4, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 25), null, 0, false));
+        transferFundsPanel.add(transferButton, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 25), null, 0, false));
         final JLabel label4 = new JLabel();
         Font label4Font = this.$$$getFont$$$("Arial Narrow", Font.BOLD, 22, label4.getFont());
         if (label4Font != null) label4.setFont(label4Font);
         label4.setText("Transfer Funds");
-        transferFundsPanel.add(label4, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        transferFundsPanel.add(label4, new GridConstraints(0, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JSeparator separator1 = new JSeparator();
+        transferFundsPanel.add(separator1, new GridConstraints(1, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     }
 
     /**

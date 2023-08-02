@@ -2,6 +2,7 @@ package edu.csis;
 
 import edu.csis.controller.LoginController;
 import edu.csis.dao.AccountDao;
+import edu.csis.dao.FundsTransactionDao;
 import edu.csis.dao.UserDao;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +27,7 @@ public class Kumo {
                 .headless(false).web(WebApplicationType.NONE).run(args);
         UserDao userDao = appContext.getBean(UserDao.class);
         AccountDao accountDao = appContext.getBean(AccountDao.class);
-        EventQueue.invokeLater(() -> new LoginController(userDao, accountDao).startKumo());
+        FundsTransactionDao fundsTransactionDao = appContext.getBean(FundsTransactionDao.class);
+        EventQueue.invokeLater(() -> new LoginController(userDao, accountDao, fundsTransactionDao).startKumo());
     }
 }

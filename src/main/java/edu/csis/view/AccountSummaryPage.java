@@ -15,19 +15,27 @@ import java.util.List;
  * @author bakumah
  */
 public class AccountSummaryPage extends JFrame {
-    protected Map<String, JButton> seeTransactionButtons = new HashMap<>();
+    protected Map<Integer, JButton> transactionButtons = new HashMap<>();
     private JButton homeButton;
+
+    public Map<Integer, JButton> getTransactionButtons() {
+        return transactionButtons;
+    }
+
+    public JButton getHomeButton() {
+        return homeButton;
+    }
+
+    public JPanel getAccountSummaryPanel() {
+        return accountSummaryPanel;
+    }
+
     private JPanel accountSummaryPanel;
 
     public AccountSummaryPage(List<Account> bankAccounts) {
         for (int i = 0; (i < bankAccounts.size() && i < 5); i++) {
-            System.out.println(bankAccounts.get(i).getAccountNumber());
-            System.out.println(bankAccounts.get(i).getAccountType());
-            System.out.println(bankAccounts.get(i).getBalance());
-            System.out.println(bankAccounts.get(i).getStatus());
-
-            JButton see_transaction = new JButton("View Transaction");
-            seeTransactionButtons.put(bankAccounts.get(i).getAccountNumber().toString(), see_transaction);
+            JButton see_transaction = new JButton("View Transactions");
+            transactionButtons.put(bankAccounts.get(i).getAccountNumber(), see_transaction);
             accountSummaryPanel.add(see_transaction, new GridConstraints(2 + i, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), null, 0, false));
             accountSummaryPanel.add(new JLabel("Account #" + bankAccounts.get(i).getAccountNumber() + ":"), new GridConstraints(2 + i, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), null, 0, false));
             accountSummaryPanel.add(new JLabel("$" + bankAccounts.get(i).getBalance()), new GridConstraints(2 + i, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), null, 0, false));

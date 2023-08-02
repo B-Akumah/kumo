@@ -13,30 +13,26 @@ import java.sql.Timestamp;
  * @author bakumah
  */
 @Entity
-@Table(name = "BANK_ACCOUNTS")
+@Table(name = "USER_TRANSACTIONS")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class FundsTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer accountNumber;
+    Integer transactionId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID")
-    User user;
+    @JoinColumn(name = "FROM_ACCOUNT")
+    Account fromAccount;
 
-    @Enumerated(EnumType.STRING)
-    AccountType accountType;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TO_ACCOUNT")
+    Account toAccount;
 
-    double balance;
+    double amount;
 
     @CreationTimestamp
-    Timestamp dateCreated;
-
-    double interestRate;
-
-    @Enumerated(EnumType.STRING)
-    AccountStatus status;
+    Timestamp transactionTimestamp;
 }
