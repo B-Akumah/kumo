@@ -107,8 +107,6 @@ public class LoginController {
                         .nation(nation)
                         .build();
 
-                System.out.println(address);
-
                 char[] password = createAccountPage.getPasswordInput().getPassword();
 
                 if (firstName == null || lastName == null || username == null || email == null || phone == null || password == null || address1 == null ||  city == null ||   state == null ||

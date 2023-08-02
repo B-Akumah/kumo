@@ -1,10 +1,18 @@
 package edu.csis.services;
 
 /**
+ * UtilityService provides various utility methods for the application.
+ * This class contains a method to retrieve a list of US states.
+ *
  * @author bakumah
  */
 public class UtilityService {
 
+    /**
+     * Retrieves a list of US states as an array of strings.
+     *
+     * @return An array of strings representing the names of US states.
+     */
     public String[] getStates() {
         return new String[]{
                 "Alabama", "Alaska", "Arizona", "Arkansas", "California",
