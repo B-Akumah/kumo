@@ -3,7 +3,7 @@ spring:
         generate-ddl: true
         hibernate.ddl-auto: update
         database: default
-        show-sql: true
+        show-sql: false
 
     datasource:
         driver-class-name: org.apache.derby.iapi.jdbc.AutoloadedDriver
@@ -15,12 +15,5 @@ spring:
 logging:
     level:
         com.zaxxer.hikari: ERROR
-#
-#    datasource:
-#        driver-class-name: com.mysql.cj.jdbc.Driver
-#        url: jdbc:mysql://localhost:3306/final_project
-#        username: csis
-#        password: password
-#        type: com.zaxxer.hikari.HikariDataSource
 
 

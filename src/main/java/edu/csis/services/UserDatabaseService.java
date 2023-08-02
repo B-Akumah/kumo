@@ -28,6 +28,7 @@ public class UserDatabaseService {
             byte[] salt = new byte[16];
             new SecureRandom().nextBytes(salt);
 
+            System.out.println(password);
             byte[] hashPassword = hashPassword(password, salt);
             User user = User.builder()
                     .firstName(fname)
@@ -50,7 +51,7 @@ public class UserDatabaseService {
 
     public boolean isUniqueUsername(String username) {
         try {
-            List<User> allByUsername = userDao.findAllByUsername(username);
+            List<User> allByUsername = userDao.findAllByUsername(username.toUpperCase());
             return allByUsername.size() == 0;
         } catch (Exception e) {
             e.printStackTrace();
