@@ -11,15 +11,17 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;
 
+
 /**
+ * This class represents the GUI page for creating a new user account in the KUMO Banking application.
+ * It extends JFrame and contains a panel with components for inputting user information and creating the account.
+ *
  * @author bakumah
  */
-
 public class CreateAccountPage extends JFrame {
+    // User information input fields
     private JTextField usernameInput;
     private JPasswordField passwordInput;
-    private JPanel createAccountPanel;
-    private JButton createButton;
     private JTextField firstNameInput;
     private JTextField lastNameInput;
     private JTextField emailInput;
@@ -30,94 +32,196 @@ public class CreateAccountPage extends JFrame {
     private JComboBox<String> stateDropdown;
     private JComboBox<String> nationDropdown;
     private JTextField zipCodeInput;
+    // Selected state and nation from the dropdowns
     private String state;
     private String nation;
+    // GUI component
+    private JPanel createAccountPanel;
+    private JButton createButton;
 
-    private final UtilityService utilityService = new UtilityService();
-
-    public JTextField getZipCodeInput() {
-        return zipCodeInput;
-    }
-
+    /**
+     * Constructor for the CreateAccountPage class.
+     * Initializes the GUI components, populates the state and nation dropdowns,
+     * and primes the state and nation with the selected items in the dropdowns.
+     */
     public CreateAccountPage() {
+        // Populate the nation dropdown with the default value "United States"
         nationDropdown.addItem("United States");
-        for (String state : utilityService.getStates()) {
+
+        // Populate the state dropdown with states retrieved from the UtilityService
+        for (String state : new UtilityService().getStates()) {
             stateDropdown.addItem(state);
         }
+
+        // Initialize the rest of the GUI components
         initComponents();
+
+        // Prime the state and nation with the selected items in the dropdowns
         primeState();
         primeNation();
+
+        // Add action listeners to the dropdowns to update the selected state and nation
         stateDropdown.addActionListener(e -> primeState());
         nationDropdown.addActionListener(e -> primeNation());
     }
 
+    /**
+     * Returns the input field for the zip Code.
+     *
+     * @return The zipCode input.
+     */
+    public JTextField getZipCodeInput() {
+        return zipCodeInput;
+    }
+
+    /**
+     * Returns the selected state from the stateDropdown.
+     *
+     * @return The selected state as a String.
+     */
     public String getAddressState() {
         return state;
     }
 
+    /**
+     * Returns the selected nation from the nationDropdown.
+     *
+     * @return The selected nation as a String.
+     */
     public String getNation() {
         return nation;
     }
 
+    /**
+     * Primes the state variable with the selected item from the stateDropdown.
+     * This method is called when the user selects an item in the dropdown.
+     */
     private void primeState() {
         state = stateDropdown.getSelectedItem().toString();
     }
 
+    /**
+     * Primes the nation variable with the selected item from the nationDropdown.
+     * This method is called when the user selects an item in the dropdown.
+     */
     private void primeNation() {
         nation = nationDropdown.getSelectedItem().toString();
     }
 
+    /**
+     * Returns the input field for the first address line.
+     *
+     * @return The input field for the first address line.
+     */
     public JTextField getAddress1Input() {
         return address1Input;
     }
 
+    /**
+     * Returns the input field for the second address line.
+     *
+     * @return The input field for the second address line.
+     */
     public JTextField getAddress2Input() {
         return address2Input;
     }
 
+    /**
+     * Returns the input field for the city.
+     *
+     * @return The input field for the city.
+     */
     public JTextField getCityInput() {
         return cityInput;
     }
 
+    /**
+     * Returns the state dropdown for selecting the state.
+     *
+     * @return The state dropdown instance.
+     */
     public JComboBox<String> getStateDropdown() {
         return stateDropdown;
     }
 
+    /**
+     * Returns the nation dropdown for selecting the nation.
+     *
+     * @return The nation dropdown instance.
+     */
     public JComboBox<String> getNationDropdown() {
         return nationDropdown;
     }
 
+    /**
+     * Returns the input field for the email address.
+     *
+     * @return The input field for the email address.
+     */
     public JTextField getEmailInput() {
         return emailInput;
     }
 
+    /**
+     * Returns the input field for the phone number.
+     *
+     * @return The input field for the phone number.
+     */
     public JTextField getPhoneInput() {
         return phoneInput;
     }
 
+    /**
+     * Returns the input field for the first name.
+     *
+     * @return The input field for the first name.
+     */
     public JTextField getFirstNameInput() {
         return firstNameInput;
     }
 
+    /**
+     * Returns the input field for the last name.
+     *
+     * @return The input field for the last name.
+     */
     public JTextField getLastNameInput() {
         return lastNameInput;
     }
 
+    /**
+     * Returns the input field for the username.
+     *
+     * @return The input field for the username.
+     */
     public JTextField getUsernameInput() {
         return usernameInput;
     }
 
+    /**
+     * Returns the input field for the password.
+     *
+     * @return The input field for the password.
+     */
     public JPasswordField getPasswordInput() {
         return passwordInput;
     }
 
+    /**
+     * Returns the Create Button on the create account page.
+     *
+     * @return The Create Button instance.
+     */
     public JButton getCreateButton() {
         return createButton;
     }
 
+    /**
+     * Initializes the components of the GUI.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
     private void initComponents() {
-
-        // Set the loginPanel as the content pane of the JFrame
+        // Set the createAccountPanel as the content pane of the JFrame
         setContentPane(createAccountPanel);
 
         // Set the title, default close operation, visibility, and pack the JFrame

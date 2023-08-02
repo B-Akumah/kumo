@@ -12,10 +12,16 @@ import java.awt.*;
 import java.util.Locale;
 
 /**
+ * This class represents the GUI page for adding a new bank account in the KUMO Banking application.
+ * It extends JFrame and contains a panel with components for selecting the account type and providing the starting balance.
+ *
  * @author bakumah
  */
 public class AddAccountPage extends JFrame {
+    // Account type selected by the user
     String accountType;
+
+    // GUI components
     private JPanel addAccountPanel;
     private JComboBox<String> accountTypeDropdown;
     private JTextField startingBalanceInput;
@@ -23,44 +29,87 @@ public class AddAccountPage extends JFrame {
     private JButton accountManagerButton;
     private JButton createButton;
 
-    public String getAccountType() {
-        return accountType;
-    }
-
+    /**
+     * Constructor for the AddAccountPage class.
+     * Initializes the GUI components, populates the account type dropdown, and primes the account type.
+     */
     public AddAccountPage() {
+        // Populate the account type dropdown with values from the AccountType enum
         for (AccountType type : AccountType.values()) {
             accountTypeDropdown.addItem(type.toString());
         }
+
+        // Prime the account type with the selected item in the dropdown
         primeAccountType();
+
+        // Initialize the rest of the GUI components
         initComponents();
+
+        // Add an action listener to the accountTypeDropdown to update the selected account type
         accountTypeDropdown.addActionListener(e -> {
             primeAccountType();
         });
     }
 
-    void primeAccountType() {
-        accountType = accountTypeDropdown.getSelectedItem().toString();
+    /**
+     * Returns the selected account type.
+     *
+     * @return The selected account type as a String.
+     */
+    public String getAccountType() {
+        return accountType;
     }
 
+    /**
+     * Returns the Starting Balance Input field where the user enters the initial balance for the new account.
+     *
+     * @return The Starting Balance Input field instance.
+     */
     public JTextField getStartingBalanceInput() {
         return startingBalanceInput;
     }
 
+    /**
+     * Returns the Home Button on the add account page.
+     *
+     * @return The Home Button instance.
+     */
     public JButton getHomeButton() {
         return homeButton;
     }
 
+    /**
+     * Returns the Account Manager Button on the add account page.
+     *
+     * @return The Account Manager Button instance.
+     */
     public JButton getAccountManagerButton() {
         return accountManagerButton;
     }
 
+    /**
+     * Returns the Create Button on the add account page.
+     *
+     * @return The Create Button instance.
+     */
     public JButton getCreateButton() {
         return createButton;
     }
 
-    private void initComponents() {
+    /**
+     * Primes the accountType variable with the selected item from the accountTypeDropdown.
+     * This method is called when the user selects an item in the dropdown.
+     */
+    void primeAccountType() {
+        accountType = accountTypeDropdown.getSelectedItem().toString();
+    }
 
-        // Set the loginPanel as the content pane of the JFrame
+    /**
+     * Initializes the components of the GUI.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
+    private void initComponents() {
+        // Set the addAccountPanel as the content pane of the JFrame
         setContentPane(addAccountPanel);
 
         // Set the title, default close operation, visibility, and pack the JFrame

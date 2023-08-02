@@ -9,31 +9,32 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
+ * This class represents the GUI page for displaying a summary of the user's bank accounts in the KUMO Banking application.
+ * It extends JFrame and contains a panel to display the account summary information and transaction buttons.
+ *
  * @author bakumah
  */
 public class AccountSummaryPage extends JFrame {
+    // Map to store transaction buttons corresponding to account numbers and balances
     protected final Map<Pair<Integer, Double>, JButton> transactionButtons = new HashMap<>();
+    // GUI components
+    private JPanel accountSummaryPanel;
     private JButton homeButton;
 
-    public  Map<Pair<Integer, Double>, JButton> getTransactionButtons() {
-        return transactionButtons;
-    }
-
-    public JButton getHomeButton() {
-        return homeButton;
-    }
-
-    public JPanel getAccountSummaryPanel() {
-        return accountSummaryPanel;
-    }
-
-    private JPanel accountSummaryPanel;
-
+    /**
+     * Constructor for the AccountSummaryPage class.
+     * Initializes the components of the GUI and populates the account summary with the provided bank accounts.
+     *
+     * @param bankAccounts A list of bank accounts to display in the account summary.
+     */
     public AccountSummaryPage(List<Account> bankAccounts) {
+        // Populate the transactionButtons map with account number and balance pairs as keys and corresponding buttons as values
         for (int i = 0; (i < bankAccounts.size() && i < 5); i++) {
             JButton see_transaction = new JButton("View Transactions");
             transactionButtons.put(new Pair<>(bankAccounts.get(i).getAccountNumber(), bankAccounts.get(i).getBalance()), see_transaction);
@@ -42,12 +43,34 @@ public class AccountSummaryPage extends JFrame {
             accountSummaryPanel.add(new JLabel("$" + bankAccounts.get(i).getBalance()), new GridConstraints(2 + i, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), null, 0, false));
         }
 
+        // Initialize the rest of the GUI components
         initComponents();
     }
 
-    private void initComponents() {
+    /**
+     * Returns the map of transaction buttons corresponding to account numbers and balances.
+     *
+     * @return The map of transaction buttons.
+     */
+    public Map<Pair<Integer, Double>, JButton> getTransactionButtons() {
+        return transactionButtons;
+    }
 
-        // Set the mainPanel as the content pane of the JFrame
+    /**
+     * Returns the Home Button on the account summary page.
+     *
+     * @return The Home Button instance.
+     */
+    public JButton getHomeButton() {
+        return homeButton;
+    }
+
+    /**
+     * Initializes the components of the GUI.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
+    private void initComponents() {
+        // Set the accountSummaryPanel as the content pane of the JFrame
         setContentPane(accountSummaryPanel);
 
         // Set the title, default close operation, visibility, and pack the JFrame

@@ -11,35 +11,66 @@ import java.awt.*;
 import java.util.Locale;
 
 /**
+ * This class represents the GUI page for user login in the KUMO Banking application.
+ * It extends JFrame and contains a panel with input fields and a login button to authenticate users.
+ *
  * @author bakumah
  */
 public class LoginPage extends JFrame {
+    // GUI components
     protected JPanel loginPanel;
     private JTextField usernameInput;
-
-    public JButton getLoginButton() {
-        return loginButton;
-    }
-
     private JButton loginButton;
     private JPasswordField passwordInput;
 
-    public JPanel getLoginPanel() {
-        return loginPanel;
-    }
-
-    public JTextField getUsernameInput() {
-        return usernameInput;
-    }
-
-    public JPasswordField getPasswordInput() {
-        return passwordInput;
-    }
-
+    /**
+     * Constructor for the LoginPage class.
+     * Initializes the components for the login page.
+     */
     public LoginPage() {
         initComponents();
     }
 
+    /**
+     * Returns the login button on the page.
+     *
+     * @return The login button as a JButton.
+     */
+    public JButton getLoginButton() {
+        return loginButton;
+    }
+
+    /**
+     * Returns the panel containing the login components.
+     *
+     * @return The login panel as a JPanel.
+     */
+    public JPanel getLoginPanel() {
+        return loginPanel;
+    }
+
+    /**
+     * Returns the username input field on the page.
+     *
+     * @return The username input field as a JTextField.
+     */
+    public JTextField getUsernameInput() {
+        return usernameInput;
+    }
+
+    /**
+     * Returns the password input field on the page.
+     *
+     * @return The password input field as a JPasswordField.
+     */
+    public JPasswordField getPasswordInput() {
+        return passwordInput;
+    }
+
+    /**
+     * Initializes the components of the login GUI page.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
     private void initComponents() {
 
         // Set the loginPanel as the content pane of the JFrame
@@ -115,4 +146,5 @@ public class LoginPage extends JFrame {
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {return loginPanel;}
+
 }

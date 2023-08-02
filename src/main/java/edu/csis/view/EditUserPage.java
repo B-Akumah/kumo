@@ -14,10 +14,12 @@ import java.awt.*;
 import java.util.Locale;
 
 /**
+ * This class represents the GUI page for editing user profile information in the KUMO Banking application.
+ * It extends JFrame and contains a panel with input fields and buttons to allow the user to modify their details.
+ *
  * @author bakumah
  */
 public class EditUserPage extends JFrame {
-    private final UtilityService utilityService = new UtilityService();
     private JPanel editUserPanel;
     private JTextField firstNameInput;
     private JTextField lastNameInput;
@@ -33,19 +35,23 @@ public class EditUserPage extends JFrame {
     private JTextField zipCodeInput;
     private JButton saveButton;
     private JButton homeButton;
-
-    public JButton getAccountManagerButton() {
-        return accountManagerButton;
-    }
-
     private JButton accountManagerButton;
 
+    /**
+     * Constructor for the EditUserPage class.
+     * Initializes the page with the user's information and components for updating the profile.
+     *
+     * @param user The User object representing the currently logged-in user.
+     */
     public EditUserPage(User user) {
+        // Set up the dropdown for state and nation selection
         nationDropdown.addItem("United States");
-        for (String state : utilityService.getStates()) {
+        // GUI components
+        for (String state : new UtilityService().getStates()) {
             stateDropdown.addItem(state);
         }
 
+        // Populate the input fields with the user's current information
         firstNameInput.setText(user.getFirstName());
         lastNameInput.setText(user.getLastName());
         emailInput.setText(user.getEmail());
@@ -58,6 +64,7 @@ public class EditUserPage extends JFrame {
         nationDropdown.setSelectedItem(address.getNation());
         zipCodeInput.setText(address.getZipCode());
 
+        // Initialize the rest of the GUI components
         initComponents();
         primeState();
         primeNation();
@@ -65,62 +72,141 @@ public class EditUserPage extends JFrame {
         nationDropdown.addActionListener(e -> primeNation());
     }
 
+    /**
+     * Sets the state variable based on the selected item in the stateDropdown.
+     */
     void primeState() {
         state = stateDropdown.getSelectedItem().toString();
     }
 
+    /**
+     * Sets the nation variable based on the selected item in the nationDropdown.
+     */
     void primeNation() {
         nation = nationDropdown.getSelectedItem().toString();
     }
 
+    /**
+     * Returns the state selected in the stateDropdown.
+     *
+     * @return The selected state as a String.
+     */
     public String getAddressState() {
         return state;
     }
 
+    /**
+     * Returns the nation selected in the nationDropdown.
+     *
+     * @return The selected nation as a String.
+     */
     public String getNation() {
         return nation;
     }
 
+    /**
+     * Returns the first name input field on the page.
+     *
+     * @return The first name input field as a JTextField.
+     */
     public JTextField getFirstNameInput() {
         return firstNameInput;
     }
 
+    /**
+     * Returns the last name input field on the page.
+     *
+     * @return The last name input field as a JTextField.
+     */
     public JTextField getLastNameInput() {
         return lastNameInput;
     }
 
+    /**
+     * Returns the email input field on the page.
+     *
+     * @return The email input field as a JTextField.
+     */
     public JTextField getEmailInput() {
         return emailInput;
     }
 
+    /**
+     * Returns the phone input field on the page.
+     *
+     * @return The phone input field as a JTextField.
+     */
     public JTextField getPhoneInput() {
         return phoneInput;
     }
 
+    /**
+     * Returns the first line of address input field on the page.
+     *
+     * @return The first line of address input field as a JTextField.
+     */
     public JTextField getAddress1Input() {
         return address1Input;
     }
 
+    /**
+     * Returns the second line of address input field on the page.
+     *
+     * @return The second line of address input field as a JTextField.
+     */
     public JTextField getAddress2Input() {
         return address2Input;
     }
 
+    /**
+     * Returns the city input field on the page.
+     *
+     * @return The city input field as a JTextField.
+     */
     public JTextField getCityInput() {
         return cityInput;
     }
 
+    /**
+     * Returns the ZIP code input field on the page.
+     *
+     * @return The ZIP code input field as a JTextField.
+     */
     public JTextField getZipCodeInput() {
         return zipCodeInput;
     }
 
+    /**
+     * Returns the Save button on the page.
+     *
+     * @return The Save button as a JButton.
+     */
     public JButton getSaveButton() {
         return saveButton;
     }
 
+    /**
+     * Returns the Home button on the page.
+     *
+     * @return The Home button as a JButton.
+     */
     public JButton getHomeButton() {
         return homeButton;
     }
 
+    /**
+     * Returns the Account Manager button on the page.
+     *
+     * @return The Account Manager button as a JButton.
+     */
+    public JButton getAccountManagerButton() {
+        return accountManagerButton;
+    }
+
+    /**
+     * Initializes the components of the edit user profile GUI page.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
     void initComponents() {
         setContentPane(editUserPanel);
 

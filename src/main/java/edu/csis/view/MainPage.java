@@ -11,30 +11,56 @@ import java.awt.*;
 import java.util.Locale;
 
 /**
+ * This class represents the main page of the KUMO Banking application.
+ * It extends JFrame and contains a panel with buttons for login and account creation.
+ *
  * @author bakumah
  */
 public class MainPage extends JFrame {
+    // GUI components
     private JPanel mainPanel;
     private JButton loginButton;
     private JButton createAccountButton;
 
-
+    /**
+     * Constructor for the MainPage class.
+     * Initializes the components for the main page.
+     */
     public MainPage() {
         initComponents();
     }
 
+    /**
+     * Returns the main panel containing the buttons.
+     *
+     * @return The main panel as a JPanel.
+     */
     public JPanel getMainPanel() {
         return mainPanel;
     }
 
+    /**
+     * Returns the login button on the main page.
+     *
+     * @return The login button as a JButton.
+     */
     public JButton getLoginButton() {
         return loginButton;
     }
 
+    /**
+     * Returns the create account button on the main page.
+     *
+     * @return The create account button as a JButton.
+     */
     public JButton getCreateAccountButton() {
         return createAccountButton;
     }
 
+    /**
+     * Initializes the components of the main GUI page.
+     * Sets up the content pane, title, default close operation, visibility, and packs the JFrame.
+     */
     private void initComponents() {
 
         // Set the mainPanel as the content pane of the JFrame
@@ -109,4 +135,5 @@ public class MainPage extends JFrame {
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {return mainPanel;}
+
 }
