@@ -22,33 +22,53 @@ public class BankAccountDatabaseService {
     }
 
     public void createCheckingAccount(User user) {
+        createCheckingAccount(user, 1000);
+    }
+
+    public boolean createCheckingAccount(User user, double initialBalance) {
+        List<Account> allAccountsForUser = getAllAccountsForUser(user);
+        if (allAccountsForUser.size() >= 5) {
+            return false;
+        }
         try {
 
             Account checkingAccount = Account.builder()
                     .accountType(AccountType.CHECKING)
-                    .balance(1000)
+                    .balance(initialBalance)
                     .interestRate(0.0)
                     .user(user)
                     .status(AccountStatus.OPEN)
                     .build();
             accountDao.save(checkingAccount);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     public void createSavingAccount(User user) {
+        createSavingAccount(user, 5000);
+    }
+
+    public boolean createSavingAccount(User user, double initialBalance) {
         try {
+            List<Account> allAccountsForUser = getAllAccountsForUser(user);
+            if (allAccountsForUser.size() >= 5) {
+                return false;
+            }
             Account checkingAccount = Account.builder()
                     .accountType(AccountType.SAVINGS)
-                    .balance(5000)
+                    .balance(initialBalance)
                     .interestRate(2.0)
                     .user(user)
                     .status(AccountStatus.OPEN)
                     .build();
             accountDao.save(checkingAccount);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
