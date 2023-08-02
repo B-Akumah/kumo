@@ -64,7 +64,7 @@ public class DashboardController {
                     transactionHistoryPage.addWindowListener(new WindowAdapter() {
                         @Override
                         public void windowClosed(WindowEvent e) {
-                            if (!dashboardPage.isVisible()){
+                            if (!dashboardPage.isVisible()) {
                                 accountSummaryPage.setVisible(true);
                             }
                         }
@@ -151,7 +151,7 @@ public class DashboardController {
             dashboardPage.setVisible(false);
             AccountManagerPage accountManagerPage = new AccountManagerPage();
 
-            accountManagerPage.getEditUserInfoButton().addActionListener(anab -> {
+            accountManagerPage.getEditUserInfoButton().addActionListener(euib -> {
                 accountManagerPage.setVisible(false);
                 EditUserPage editUserPage = new EditUserPage(user);
 
@@ -200,7 +200,7 @@ public class DashboardController {
                     }
                 });
 
-                editUserPage.getAccountManagerButton().addActionListener(hb -> {
+                editUserPage.getAccountManagerButton().addActionListener(amb2 -> {
                     accountManagerPage.setVisible(true);
                     editUserPage.dispose();
                 });
@@ -218,8 +218,65 @@ public class DashboardController {
                     }
                 });
             });
-            accountManagerPage.getAddNewAccountButton().addActionListener(euib -> {
+
+            accountManagerPage.getAddNewAccountButton().addActionListener(anab -> {
+                accountManagerPage.setVisible(false);
                 AddAccountPage addAccountPage = new AddAccountPage();
+
+                addAccountPage.getCreateButton().addActionListener(cb -> {
+                    String startingBalanceText = addAccountPage.getStartingBalanceInput().getText();
+                    if (startingBalanceText == null || startingBalanceText.isBlank()) {
+                        showMessageDialog(null, "Must enter a positive starting balance");
+                    } else {
+                        double startingBalance = Double.parseDouble(startingBalanceText);
+                        if (startingBalance <= 0) {
+                            showMessageDialog(null, "Must enter a positive starting balance");
+                        } else {
+                            AccountType accountType = AccountType.valueOf(addAccountPage.getAccountType());
+                            switch (accountType) {
+                                case SAVINGS -> {
+                                    boolean savingAccount = bankAccountDatabaseService.createSavingAccount(user, startingBalance);
+                                    if (!savingAccount) {
+                                        showMessageDialog(null, "Error creating Savings account. (Remember there is a max of 5 account total)");
+                                    }
+                                    accountManagerPage.setVisible(true);
+                                    addAccountPage.dispose();
+
+                                }
+                                case CHECKING -> {
+                                    boolean checkingAccount = bankAccountDatabaseService.createCheckingAccount(user, startingBalance);
+                                    if (!checkingAccount) {
+                                        showMessageDialog(null, "Error creating Checking account. (Remember there is a max of 5 account total)");
+                                    }
+                                    accountManagerPage.setVisible(true);
+                                    addAccountPage.dispose();
+                                }
+                                default -> {
+                                    System.err.println("Unknown account Type");
+                                    showMessageDialog(null, "Unknown account Type");
+                                }
+                            }
+                        }
+                    }
+                });
+
+                addAccountPage.getAccountManagerButton().addActionListener(amb2 -> {
+                    accountManagerPage.setVisible(true);
+                    addAccountPage.dispose();
+                });
+                addAccountPage.getHomeButton().addActionListener(hb -> {
+                    addAccountPage.dispose();
+                    accountManagerPage.dispose();
+                    dashboardPage.setVisible(true);
+                });
+                addAccountPage.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        if (!dashboardPage.isVisible()) {
+                            accountManagerPage.setVisible(true);
+                        }
+                    }
+                });
             });
 
             accountManagerPage.getHomeButton().addActionListener(hb -> {
