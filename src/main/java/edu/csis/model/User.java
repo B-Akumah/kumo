@@ -30,4 +30,6 @@ public class User {
     byte[] passwordSalt;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Account> accounts;
+    @Embedded
+    private Address address;
 }
