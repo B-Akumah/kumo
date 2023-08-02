@@ -7,6 +7,8 @@ import edu.csis.model.AccountStatus;
 import edu.csis.model.AccountType;
 import edu.csis.model.User;
 
+import java.util.List;
+
 /**
  * @author bakumah
  */
@@ -30,9 +32,11 @@ public class BankAccountDatabaseService {
                     .build();
             return accountDao.save(checkingAccount);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
+
     public Account createSavingAccount(User user) {
         try {
             Account checkingAccount = Account.builder()
@@ -44,7 +48,17 @@ public class BankAccountDatabaseService {
                     .build();
             return accountDao.save(checkingAccount);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
+        }
+    }
+
+    public List<Account> getAllAccountsForUser(User user) {
+        try {
+            return accountDao.findAllByUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
         }
     }
 }

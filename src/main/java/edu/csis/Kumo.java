@@ -1,5 +1,6 @@
 package edu.csis;
 
+import edu.csis.controller.LoginController;
 import edu.csis.dao.AccountDao;
 import edu.csis.dao.UserDao;
 import org.springframework.boot.WebApplicationType;

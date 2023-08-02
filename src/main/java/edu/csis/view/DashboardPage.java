@@ -5,15 +5,12 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import edu.csis.model.User;
-import edu.csis.services.UserDatabaseService;
-import lombok.RequiredArgsConstructor;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author bakumah
@@ -33,6 +30,22 @@ public class DashboardPage extends JFrame {
         System.out.println(user.getUserID() + " = " + username);
         welcomeText.setText("Welcome " + firstName + " " + lastName);
         initComponents();
+    }
+
+    public JButton getAccountSummaryButton() {
+        return accountSummaryButton;
+    }
+
+    public JButton getTransferMoneyButton() {
+        return transferMoneyButton;
+    }
+
+    public JButton getAccountManagerButton() {
+        return accountManagerButton;
+    }
+
+    public JButton getLogOutButton() {
+        return logOutButton;
     }
 
     private void initComponents() {
@@ -128,4 +141,5 @@ public class DashboardPage extends JFrame {
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {return dashboardPanel;}
+
 }

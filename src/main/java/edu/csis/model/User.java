@@ -28,6 +28,6 @@ public class User {
     String phoneNumber;
     byte[] passwordHash;
     byte[] passwordSalt;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Account> accounts;
 }

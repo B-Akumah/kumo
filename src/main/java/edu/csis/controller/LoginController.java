@@ -1,4 +1,4 @@
-package edu.csis;
+package edu.csis.controller;
 
 
 import edu.csis.dao.AccountDao;
@@ -24,12 +24,14 @@ public class LoginController {
     private final UserDatabaseService userDatabaseService;
     private final BankAccountDatabaseService bankAccountDatabaseService;
     private final UserDao userDao;
+    private final AccountDao accountDao;
     boolean isLoggedIn = false;
 
     public LoginController(UserDao userDao, AccountDao accountDao) {
         userDatabaseService = new UserDatabaseService(userDao);
         bankAccountDatabaseService = new BankAccountDatabaseService(accountDao);
         this.userDao = userDao;
+        this.accountDao = accountDao;
     }
 
     public void startKumo() {
@@ -49,7 +51,7 @@ public class LoginController {
                     int login = userDatabaseService.verifyLogin(username, password);
 
                     if (login > 0) {
-                        new DashboardController(userDao, login);
+                        new DashboardController(userDao, accountDao, login);
                         isLoggedIn = true;
                         loginPage.dispose();
                         mainPage.dispose();
@@ -94,7 +96,7 @@ public class LoginController {
                             bankAccountDatabaseService.createCheckingAccount(createdUser);
                             bankAccountDatabaseService.createSavingAccount(createdUser);
                             // Show them Dashboard Screen
-                            new DashboardController(userDao, createdUser.getUserID());
+                            new DashboardController(userDao, accountDao, createdUser.getUserID());
 
                             // dispose create account pane
                             mainPage.dispose();
