@@ -10,15 +10,78 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Entity class representing a user in the system.
+ * It is mapped to the "BANK_USERS" table in the database.
+ * 
  * @author bakumah
  */
-@Data
 @Entity
+@Table(name = "BANK_USERS")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "BANK_USERS")
 public class User {
+
+    /**
+     * The unique identifier for the user.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer userID;
+
+    /**
+     * The username of the user.
+     */
+    String username;
+
+    /**
+     * The first name of the user.
+     */
+    String firstName;
+
+    /**
+     * The last name of the user.
+     */
+    String lastName;
+
+    /**
+     * The email address of the user.
+     */
+    String email;
+
+    /**
+     * The phone number of the user.
+     */
+    String phoneNumber;
+
+    /**
+     * The hashed password of the user.
+     */
+    byte[] passwordHash;
+
+    /**
+     * The salt used for password hashing.
+     */
+    byte[] passwordSalt;
+
+    /**
+     * The list of accounts associated with the user.
+     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Account> accounts;
+
+    /**
+     * The address of the user.
+     */
+    @Embedded
+    private Address address;
+
+    /**
+     * Returns a string representation of the User object.
+     *
+     * @return A string representation of the User object.
+     */
     @Override
     public String toString() {
         return "User{" +
@@ -33,19 +96,4 @@ public class User {
                 ", address=" + address.toString() +
                 '}';
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer userID;
-    String username;
-    String firstName;
-    String lastName;
-    String email;
-    String phoneNumber;
-    byte[] passwordHash;
-    byte[] passwordSalt;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Account> accounts;
-    @Embedded
-    private Address address;
 }
