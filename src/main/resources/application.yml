@@ -3,7 +3,7 @@ spring:
         generate-ddl: true
         hibernate.ddl-auto: update
         database: default
-        show-sql: true
+        show-sql: false
 
     datasource:
         driver-class-name: org.apache.derby.iapi.jdbc.AutoloadedDriver
