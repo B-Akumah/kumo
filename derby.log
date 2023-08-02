@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Aug 02 18:42:01 EDT 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0189-b86a-4ca8-000002e4a280 
+Wed Aug 02 19:26:06 EDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0189-b892-a66b-000002e98708 
 on database directory C:\Users\bakumah\Documents\Brian Personal\School\CSIS-505\Final Project\kumo\final_project with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/bakumah/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.15.2.0/b64da6681994f33ba5783ffae55cdb44885b9e70/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation
