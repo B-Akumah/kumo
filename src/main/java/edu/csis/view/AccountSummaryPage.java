@@ -3,6 +3,7 @@ package edu.csis.view;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import edu.csis.model.Account;
+import edu.csis.model.Pair;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
@@ -15,10 +16,10 @@ import java.util.List;
  * @author bakumah
  */
 public class AccountSummaryPage extends JFrame {
-    protected Map<Integer, JButton> transactionButtons = new HashMap<>();
+    protected final Map<Pair<Integer, Double>, JButton> transactionButtons = new HashMap<>();
     private JButton homeButton;
 
-    public Map<Integer, JButton> getTransactionButtons() {
+    public  Map<Pair<Integer, Double>, JButton> getTransactionButtons() {
         return transactionButtons;
     }
 
@@ -35,7 +36,7 @@ public class AccountSummaryPage extends JFrame {
     public AccountSummaryPage(List<Account> bankAccounts) {
         for (int i = 0; (i < bankAccounts.size() && i < 5); i++) {
             JButton see_transaction = new JButton("View Transactions");
-            transactionButtons.put(bankAccounts.get(i).getAccountNumber(), see_transaction);
+            transactionButtons.put(new Pair<>(bankAccounts.get(i).getAccountNumber(), bankAccounts.get(i).getBalance()), see_transaction);
             accountSummaryPanel.add(see_transaction, new GridConstraints(2 + i, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), null, 0, false));
             accountSummaryPanel.add(new JLabel("Account #" + bankAccounts.get(i).getAccountNumber() + ":"), new GridConstraints(2 + i, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), null, 0, false));
             accountSummaryPanel.add(new JLabel("$" + bankAccounts.get(i).getBalance()), new GridConstraints(2 + i, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), null, 0, false));

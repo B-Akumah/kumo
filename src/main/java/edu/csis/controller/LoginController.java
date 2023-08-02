@@ -54,11 +54,18 @@ public class LoginController {
                     int login = userDatabaseService.verifyLogin(username, password);
 
                     if (login > 0) {
-                        new DashboardController(userDao, accountDao,fundsTransactionDao, login);
+                        DashboardController dashboardController = new DashboardController(userDao, accountDao, fundsTransactionDao, login);
                         isLoggedIn = true;
                         loginPage.dispose();
-                        mainPage.dispose();
+                        mainPage.setVisible(false);
                         System.out.println("YAYY WE LOGGED IN");
+
+                        dashboardController.getLogOutButton().addActionListener(lob -> {
+                            dashboardController.setUser(null);
+                            dashboardController.getDashboardPage().dispose();
+                            mainPage.setVisible(true);
+                            System.out.println("Log Out");
+                        });
                     } else {
                         showMessageDialog(null, "Invalid login. Try again.");
                     }
@@ -99,12 +106,18 @@ public class LoginController {
                             bankAccountDatabaseService.createCheckingAccount(createdUser);
                             bankAccountDatabaseService.createSavingAccount(createdUser);
                             // Show them Dashboard Screen
-                            new DashboardController(userDao, accountDao, fundsTransactionDao, createdUser.getUserID());
-
+                            DashboardController dashboardController = new DashboardController(userDao, accountDao, fundsTransactionDao, createdUser.getUserID());
                             // dispose create account pane
-                            mainPage.dispose();
+                            mainPage.setVisible(false);
                             createAccountPage.dispose();
                             System.out.println("YAYY WE LOGGED IN");
+
+                            dashboardController.getLogOutButton().addActionListener(lob -> {
+                                dashboardController.setUser(null);
+                                dashboardController.getDashboardPage().dispose();
+                                mainPage.setVisible(true);
+                                System.out.println("Log Out");
+                            });
                         } else {
                             showMessageDialog(null, "Unable to create account. Try again later");
                         }

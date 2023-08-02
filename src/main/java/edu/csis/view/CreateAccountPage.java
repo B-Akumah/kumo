@@ -6,7 +6,6 @@ import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
-import javax.swing.text.MaskFormatter;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;

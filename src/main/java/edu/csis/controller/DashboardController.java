@@ -5,6 +5,7 @@ import edu.csis.dao.FundsTransactionDao;
 import edu.csis.dao.UserDao;
 import edu.csis.model.Account;
 import edu.csis.model.FundsTransaction;
+import edu.csis.model.Pair;
 import edu.csis.model.User;
 import edu.csis.services.BankAccountDatabaseService;
 import edu.csis.services.UserDatabaseService;
@@ -30,17 +31,18 @@ public class DashboardController {
     private final UserDatabaseService userDatabaseService;
     private final BankAccountDatabaseService bankAccountDatabaseService;
 
+    private final JButton logOutButton;
+    private final DashboardPage dashboardPage;
     private User user;
-
     public DashboardController(final UserDao userDao, final AccountDao accountDao, final FundsTransactionDao fundsTransactionDao, final int loginId) {
         userDatabaseService = new UserDatabaseService(userDao);
         bankAccountDatabaseService = new BankAccountDatabaseService(accountDao, fundsTransactionDao);
         user = userDatabaseService.getUserById(loginId);
-        DashboardPage dashboardPage = new DashboardPage(user);
+        dashboardPage = new DashboardPage(user);
+        logOutButton = dashboardPage.getLogOutButton();
 
         dashboardPage.getAccountSummaryButton().addActionListener(asb -> {
             List<Account> bankAccounts = bankAccountDatabaseService.getAllAccountsForUser(user);
-            System.out.println("GO to Account Summary");
             AccountSummaryPage accountSummaryPage = new AccountSummaryPage(bankAccounts);
 
             accountSummaryPage.getHomeButton().addActionListener(hb -> {
@@ -48,16 +50,30 @@ public class DashboardController {
                 dashboardPage.setVisible(true);
             });
 
-            Map<Integer, JButton> transactionButtons = accountSummaryPage.getTransactionButtons();
-            for (Entry<Integer, JButton> buttonEntry : transactionButtons.entrySet()) {
+            Map<Pair<Integer, Double>, JButton> transactionButtons = accountSummaryPage.getTransactionButtons();
+            for (Entry<Pair<Integer, Double>, JButton> buttonEntry : transactionButtons.entrySet()) {
                 buttonEntry.getValue().addActionListener(tb -> {
-                    Integer thisTransaction = buttonEntry.getKey();
-                    System.out.println("****** " + thisTransaction);
+                    Integer thisTransaction = buttonEntry.getKey().first();
+                    Double accountBalance = buttonEntry.getKey().second();
                     List<FundsTransaction> allTransactionsForAccount = bankAccountDatabaseService.getAllTransactionsForAccount(thisTransaction);
-                    TransactionHistoryPage transactionHistoryPage = new TransactionHistoryPage(thisTransaction, allTransactionsForAccount);
+                    TransactionHistoryPage transactionHistoryPage = new TransactionHistoryPage(thisTransaction, accountBalance, allTransactionsForAccount);
+
                     dashboardPage.setVisible(false);
+                    accountSummaryPage.setVisible(false);
+
+                    transactionHistoryPage.getBackToSummaryButton().addActionListener(btsb -> {
+                        transactionHistoryPage.dispose();
+                        accountSummaryPage.setVisible(true);
+                    });
+                    transactionHistoryPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            accountSummaryPage.setVisible(true);
+                        }
+                    });
                     transactionHistoryPage.getHomeButton().addActionListener(hb -> {
-                        transactionHistoryPage.dispose();;
+                        transactionHistoryPage.dispose();
+                        accountSummaryPage.dispose();
                         dashboardPage.setVisible(true);
                     });
                 });
@@ -70,6 +86,7 @@ public class DashboardController {
                 }
             });
         });
+
         dashboardPage.getTransferMoneyButton().addActionListener(tmb -> {
             List<Account> bankAccounts = bankAccountDatabaseService.getAllAccountsForUser(user);
             dashboardPage.setVisible(false);
@@ -130,18 +147,22 @@ public class DashboardController {
                     dashboardPage.setVisible(true);
                 }
             });
-
-            System.out.println("GO to Transfer Money");
         });
         dashboardPage.getAccountManagerButton().addActionListener(amb -> {
             System.out.println("GO to Account Manager");
         });
 
-        dashboardPage.getLogOutButton().addActionListener(lob -> {
-            System.out.println("Log Out");
-        });
-
-
     }
 
+    public DashboardPage getDashboardPage() {
+        return dashboardPage;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public JButton getLogOutButton() {
+        return logOutButton;
+    }
 }

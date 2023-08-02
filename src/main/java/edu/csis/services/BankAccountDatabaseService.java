@@ -26,7 +26,7 @@ public class BankAccountDatabaseService {
 
             Account checkingAccount = Account.builder()
                     .accountType(AccountType.CHECKING)
-                    .balance(0)
+                    .balance(1000)
                     .interestRate(0.0)
                     .user(user)
                     .status(AccountStatus.OPEN)
@@ -41,7 +41,7 @@ public class BankAccountDatabaseService {
         try {
             Account checkingAccount = Account.builder()
                     .accountType(AccountType.SAVINGS)
-                    .balance(0)
+                    .balance(5000)
                     .interestRate(2.0)
                     .user(user)
                     .status(AccountStatus.OPEN)
@@ -108,7 +108,7 @@ public class BankAccountDatabaseService {
             Optional<Account> optionalAccount = accountDao.findById(accountID);
             if (optionalAccount.isPresent()) {
                 Account account = optionalAccount.get();
-                return fundsTransactionDao.findAllByFromAccountAndToAccount(account, account);
+                return fundsTransactionDao.findAllByFromAccountOrToAccount(account, account);
             } else {
                 return List.of();
             }

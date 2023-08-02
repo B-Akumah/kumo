@@ -10,5 +10,5 @@ import java.util.List;
  * @author bakumah
  */
 public interface FundsTransactionDao extends JpaRepository<FundsTransaction, Integer> {
-    List<FundsTransaction> findAllByFromAccountAndToAccount(Account fromAccount, Account toAccount);
+    List<FundsTransaction> findAllByFromAccountOrToAccount(Account fromAccount, Account toAccount);
 }
