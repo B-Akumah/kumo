@@ -3,16 +3,10 @@ package edu.csis.controller;
 import edu.csis.dao.AccountDao;
 import edu.csis.dao.FundsTransactionDao;
 import edu.csis.dao.UserDao;
-import edu.csis.model.Account;
-import edu.csis.model.FundsTransaction;
-import edu.csis.model.Pair;
-import edu.csis.model.User;
+import edu.csis.model.*;
 import edu.csis.services.BankAccountDatabaseService;
 import edu.csis.services.UserDatabaseService;
-import edu.csis.view.AccountSummaryPage;
-import edu.csis.view.DashboardPage;
-import edu.csis.view.TransactionHistoryPage;
-import edu.csis.view.TransferFundsPage;
+import edu.csis.view.*;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -34,6 +28,7 @@ public class DashboardController {
     private final JButton logOutButton;
     private final DashboardPage dashboardPage;
     private User user;
+
     public DashboardController(final UserDao userDao, final AccountDao accountDao, final FundsTransactionDao fundsTransactionDao, final int loginId) {
         userDatabaseService = new UserDatabaseService(userDao);
         bankAccountDatabaseService = new BankAccountDatabaseService(accountDao, fundsTransactionDao);
@@ -44,6 +39,7 @@ public class DashboardController {
         dashboardPage.getAccountSummaryButton().addActionListener(asb -> {
             List<Account> bankAccounts = bankAccountDatabaseService.getAllAccountsForUser(user);
             AccountSummaryPage accountSummaryPage = new AccountSummaryPage(bankAccounts);
+            dashboardPage.setVisible(false);
 
             accountSummaryPage.getHomeButton().addActionListener(hb -> {
                 accountSummaryPage.dispose();
@@ -68,7 +64,9 @@ public class DashboardController {
                     transactionHistoryPage.addWindowListener(new WindowAdapter() {
                         @Override
                         public void windowClosed(WindowEvent e) {
-                            accountSummaryPage.setVisible(true);
+                            if (!dashboardPage.isVisible()){
+                                accountSummaryPage.setVisible(true);
+                            }
                         }
                     });
                     transactionHistoryPage.getHomeButton().addActionListener(hb -> {
@@ -148,8 +146,94 @@ public class DashboardController {
                 }
             });
         });
+
         dashboardPage.getAccountManagerButton().addActionListener(amb -> {
+            dashboardPage.setVisible(false);
+            AccountManagerPage accountManagerPage = new AccountManagerPage();
+
+            accountManagerPage.getEditUserInfoButton().addActionListener(anab -> {
+                accountManagerPage.setVisible(false);
+                EditUserPage editUserPage = new EditUserPage(user);
+
+                editUserPage.getSaveButton().addActionListener(sb -> {
+                    String firstName = editUserPage.getFirstNameInput().getText();
+                    String lastName = editUserPage.getLastNameInput().getText();
+                    String email = editUserPage.getEmailInput().getText();
+                    String phone = editUserPage.getPhoneInput().getText();
+                    String address1 = editUserPage.getAddress1Input().getText();
+                    String address2 = editUserPage.getAddress2Input().getText();
+                    String city = editUserPage.getCityInput().getText();
+                    String addressState = editUserPage.getAddressState();
+                    String nation = editUserPage.getNation();
+                    String zipCode = editUserPage.getZipCodeInput().getText();
+
+                    user.setFirstName(firstName);
+                    user.setLastName(lastName);
+                    user.setEmail(email);
+                    user.setPhoneNumber(phone);
+                    Address address = new Address();
+                    address.setStreetLine1(address1);
+                    address.setStreetLine2(address2);
+                    address.setCity(city);
+                    address.setState(addressState);
+                    address.setNation(nation);
+                    address.setZipCode(zipCode);
+                    user.setAddress(address);
+
+                    System.out.println("firstName = " + firstName);
+                    System.out.println("lastName = " + lastName);
+                    System.out.println("email = " + email);
+                    System.out.println("phone = " + phone);
+                    System.out.println("address1 = " + address1);
+                    System.out.println("address2 = " + address2);
+                    System.out.println("city = " + city);
+                    System.out.println("addressState = " + addressState);
+                    System.out.println("nation = " + nation);
+                    System.out.println("zipCode = " + zipCode);
+
+                    if (userDatabaseService.updateUser(user)) {
+                        showMessageDialog(null, "User successfully updated");
+                        dashboardPage.setVisible(false);
+                        editUserPage.dispose();
+                    } else {
+                        showMessageDialog(null, "Something went wrong, please verify inputs and try again");
+                    }
+                });
+
+                editUserPage.getAccountManagerButton().addActionListener(hb -> {
+                    accountManagerPage.setVisible(true);
+                    editUserPage.dispose();
+                });
+                editUserPage.getHomeButton().addActionListener(hb -> {
+                    dashboardPage.setVisible(true);
+                    editUserPage.dispose();
+                    accountManagerPage.dispose();
+                });
+                editUserPage.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        if (!dashboardPage.isVisible()) {
+                            accountManagerPage.setVisible(true);
+                        }
+                    }
+                });
+            });
+            accountManagerPage.getAddNewAccountButton().addActionListener(euib -> {
+                AddAccountPage addAccountPage = new AddAccountPage();
+            });
+
+            accountManagerPage.getHomeButton().addActionListener(hb -> {
+                dashboardPage.setVisible(true);
+                accountManagerPage.dispose();
+            });
+            accountManagerPage.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    dashboardPage.setVisible(true);
+                }
+            });
             System.out.println("GO to Account Manager");
+
         });
 
     }
