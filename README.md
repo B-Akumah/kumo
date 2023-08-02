@@ -34,12 +34,21 @@ Make sure you have the following software installed on your system:
 
 ### Installation
 1. Clone the repository to your local machine:
-
-   ```
-
+    ```
+    git clone https://github.com/your-username/kumo-banking.git
+    cd kumo-banking
+    ```
+2. Build the project using Gradle:
+    ```
+    gradlew build
+    ```
 
 ## Usage
-1. Launch the application. Use gradlew botrun
+1. Launch the application. 
+   To run the application and automatically open the GUI, use the following Gradle command:
+    ```
+    gradlew bootRun
+    ```
 
 2. **Login:** If you have an existing account, log in with your username and password. Otherwise, click on the "Create Account" button to register.
 
