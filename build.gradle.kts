@@ -25,6 +25,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.intellij:forms_rt:7.0.3")
     implementation("com.mysql:mysql-connector-j:8.1.0")
+    implementation("org.apache.derby:derby:10.15.2.0")
+    implementation("org.apache.derby:derbyclient:10.16.1.1")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
