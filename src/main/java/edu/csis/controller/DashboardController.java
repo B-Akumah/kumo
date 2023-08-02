@@ -180,17 +180,6 @@ public class DashboardController {
                     address.setZipCode(zipCode);
                     user.setAddress(address);
 
-                    System.out.println("firstName = " + firstName);
-                    System.out.println("lastName = " + lastName);
-                    System.out.println("email = " + email);
-                    System.out.println("phone = " + phone);
-                    System.out.println("address1 = " + address1);
-                    System.out.println("address2 = " + address2);
-                    System.out.println("city = " + city);
-                    System.out.println("addressState = " + addressState);
-                    System.out.println("nation = " + nation);
-                    System.out.println("zipCode = " + zipCode);
-
                     if (userDatabaseService.updateUser(user)) {
                         showMessageDialog(null, "User successfully updated");
                         dashboardPage.setVisible(false);
@@ -289,8 +278,6 @@ public class DashboardController {
                     dashboardPage.setVisible(true);
                 }
             });
-            System.out.println("GO to Account Manager");
-
         });
 
     }
