@@ -4,6 +4,7 @@ package edu.csis.controller;
 import edu.csis.dao.AccountDao;
 import edu.csis.dao.FundsTransactionDao;
 import edu.csis.dao.UserDao;
+import edu.csis.model.Address;
 import edu.csis.model.User;
 import edu.csis.services.BankAccountDatabaseService;
 import edu.csis.services.UserDatabaseService;
@@ -89,16 +90,36 @@ public class LoginController {
                 String username = createAccountPage.getUsernameInput().getText();
                 String email = createAccountPage.getEmailInput().getText();
                 String phone = createAccountPage.getPhoneInput().getText();
+
+                String address1 = createAccountPage.getAddress1Input().getText();
+                String address2 = createAccountPage.getAddress2Input().getText();
+                String city = createAccountPage.getCityInput().getText();
+                String state = createAccountPage.getAddressState();
+                String nation = createAccountPage.getNation();
+                String zipCode = createAccountPage.getZipCodeInput().getText();
+
+                Address address = Address.builder()
+                        .streetLine1(address1)
+                        .streetLine2(address2)
+                        .city(city)
+                        .state(state)
+                        .zipCode(zipCode)
+                        .nation(nation)
+                        .build();
+
+                System.out.println(address);
+
                 char[] password = createAccountPage.getPasswordInput().getPassword();
 
-                if (firstName == null || lastName == null || username == null || email == null || phone == null || password == null ||
-                        firstName.isBlank() || lastName.isBlank() || username.isBlank() || email.isBlank() || phone.isBlank() || password.length == 0) {
-                    showMessageDialog(null, "All Fields must be populated");
+                if (firstName == null || lastName == null || username == null || email == null || phone == null || password == null || address1 == null ||  city == null ||   state == null ||
+                        firstName.isBlank() || lastName.isBlank() || username.isBlank() || email.isBlank() || phone.isBlank() || password.length == 0 || address1.isBlank() || city.isBlank() || state.isBlank()) {
+                    showMessageDialog(null, "All Fields must be populated (Except Address Line 2)");
                 } else {
                     // Check if username already exists
                     if (userDatabaseService.isUniqueUsername(username)) {
                         // Create Account Username and PW
-                        User createdUser = userDatabaseService.createUser(firstName, lastName, username, password, email, phone);
+                        User createdUser = userDatabaseService.createUser(firstName, lastName, username, password, email, phone, address);
+
                         if (createdUser != null) {
                             isLoggedIn = true;
 

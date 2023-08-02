@@ -2,6 +2,7 @@ package edu.csis.services;
 
 
 import edu.csis.dao.UserDao;
+import edu.csis.model.Address;
 import edu.csis.model.User;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class UserDatabaseService {
 
     public UserDatabaseService(UserDao userDao) {this.userDao = userDao;}
 
-    public User createUser(String fname, String lName, String username, char[] password, String email, String phone) {
+    public User createUser(String fname, String lName, String username, char[] password, String email, String phone, Address address) {
         try {
             byte[] salt = new byte[16];
             new SecureRandom().nextBytes(salt);
@@ -36,6 +37,7 @@ public class UserDatabaseService {
                     .phoneNumber(phone)
                     .passwordHash(hashPassword)
                     .passwordSalt(salt)
+                    .address(address)
                     .build();
 
             System.out.println(user);
